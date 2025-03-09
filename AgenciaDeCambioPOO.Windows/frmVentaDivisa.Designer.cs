@@ -109,6 +109,7 @@
             nudCantidad.Size = new Size(93, 23);
             nudCantidad.TabIndex = 8;
             nudCantidad.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            nudCantidad.ValueChanged += nudCantidad_ValueChanged;
             // 
             // cboDivisas
             // 
@@ -118,6 +119,7 @@
             cboDivisas.Name = "cboDivisas";
             cboDivisas.Size = new Size(196, 23);
             cboDivisas.TabIndex = 7;
+            cboDivisas.SelectedIndexChanged += cboDivisas_SelectedIndexChanged;
             // 
             // txtFechaOperacion
             // 
@@ -181,6 +183,7 @@
             btnOK.Text = "OK";
             btnOK.TextAlign = ContentAlignment.BottomCenter;
             btnOK.UseVisualStyleBackColor = true;
+            btnOK.Click += btnOK_Click;
             // 
             // frmVentaDivisa
             // 
