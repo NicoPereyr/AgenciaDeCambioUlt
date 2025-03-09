@@ -10,7 +10,6 @@ namespace AgenciaDeCambioPOO.Datos
     public class ManejadorArchivoSecuencial : IArchivoSecuencial
     {
         private readonly string _ruta;
-        private List<Transaccion> transacciones=new();
 
         public ManejadorArchivoSecuencial(string ruta)
         {
@@ -19,7 +18,27 @@ namespace AgenciaDeCambioPOO.Datos
 
         public void GuardarDatos(string _ruta, Transaccion datos)
         {
-            
+            /*
+             * El parametro true, hace que el
+             * streamwriter agregue un registro al
+             * final del archivo
+             */
+            using (StreamWriter escritor=new StreamWriter(_ruta, true))
+            {
+                var linea = ConstruirLinea(datos);
+                escritor.WriteLine(linea);
+            }
+        }
+
+        private object ConstruirLinea(Transaccion datos)
+        {
+            string tipoOperacion = "Venta";
+            return $"{datos.Fecha}|" +
+                $"{datos.Abreviatura}|" +
+                $"{datos.Cantidad}|" +
+                $"{datos.Cotizacion}|" +
+                $"{tipoOperacion}|" +
+                $"{datos.Total}";
         }
 
         public List<Transaccion> LeerDatos(string _ruta)

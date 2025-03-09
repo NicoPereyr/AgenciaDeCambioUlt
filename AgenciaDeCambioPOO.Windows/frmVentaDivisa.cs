@@ -10,6 +10,7 @@ namespace AgenciaDeCambioPOO.Windows
         private readonly IServiceProvider _serviceProvider;
 
         private Divisa? divisaSeleccionada = null;
+        private Venta? venta = null;
 
         public frmVentaDivisa(IServiceProvider serviceProvider)
         {
@@ -55,7 +56,7 @@ namespace AgenciaDeCambioPOO.Windows
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            Venta venta = new Venta(divisaSeleccionada!, nudCantidad.Value)
+             venta = new Venta(divisaSeleccionada!, nudCantidad.Value)
             {
                 Fecha = DateTime.Now,
                 Cotizacion = divisaSeleccionada!.CotizacionVenta
@@ -63,6 +64,10 @@ namespace AgenciaDeCambioPOO.Windows
             MessageBox.Show($"{venta.MostrarTransaccion()}", "Venta",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
             DialogResult = DialogResult.OK;
+        }
+        public Venta? GetVenta()
+        {
+            return venta;
         }
     }
 }

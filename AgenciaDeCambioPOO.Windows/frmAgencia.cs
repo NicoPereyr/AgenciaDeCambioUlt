@@ -35,7 +35,15 @@ namespace AgenciaDeCambioPOO.Windows
         private void tsbVenta_Click(object sender, EventArgs e)
         {
             frmVentaDivisa frm = new frmVentaDivisa(_serviceProvider);
-            frm.ShowDialog();
+            DialogResult dr=frm.ShowDialog();
+            if(dr==DialogResult.Cancel) return;
+            Venta? venta = frm.GetVenta();
+            if (venta == null) return;
+            AgenciaDeCambio agencia = _serviceProvider.GetRequiredService<AgenciaDeCambio>()!;
+            agencia.GuardarTransaccion(venta);
+            DataGridViewRow r = GridHelper.ConstruirFila(dgvOperaciones);
+            GridHelper.SetearFila(r, venta);
+            GridHelper.AgregarFila(r, dgvOperaciones);
         }
     }
 }

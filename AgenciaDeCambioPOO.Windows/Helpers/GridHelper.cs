@@ -55,14 +55,14 @@ namespace AgenciaDeCambioPOO.Windows.Helpers
                     r.Cells[3].Value = divisa.CotizacionCompra.ToString("C");
                     r.Cells[4].Value = divisa.CotizacionVenta.ToString("C");
                     break;
-                //case Transaccion transaccion:
-                //    r.Cells[0].Value = transaccion.Fecha.ToShortDateString();
-                //    r.Cells[1].Value = transaccion.Abreviatura;
-                //    r.Cells[2].Value = transaccion.GetType().Name;
-                //    r.Cells[3].Value = transaccion.Cotizacion.ToString("C");
-                //    r.Cells[4].Value = transaccion.Cantidad;
-                //    r.Cells[5].Value = transaccion.Total.ToString("C");
-                //    break;
+                case Transaccion transaccion:
+                    r.Cells[0].Value = transaccion.Fecha.ToShortDateString();
+                    r.Cells[1].Value = transaccion.Abreviatura;
+                    r.Cells[2].Value = transaccion.GetType().Name;
+                    r.Cells[3].Value = transaccion.Cotizacion.ToString("C");
+                    r.Cells[4].Value = transaccion.Cantidad;
+                    r.Cells[5].Value = transaccion.Total.ToString("C");
+                    break;
                 default:
                     break;
             }

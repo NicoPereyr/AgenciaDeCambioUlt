@@ -6,11 +6,12 @@ namespace AgenciaDeCambioPOO.Datos
     public class AgenciaDeCambio
     {
         private readonly RepositorioDivisas _repositorioDivisas;
-
-  
-        public AgenciaDeCambio(RepositorioDivisas repositorioDivisas)
+        private readonly RepositorioTransacciones _repositorioTransacciones;
+        public AgenciaDeCambio(RepositorioDivisas repositorioDivisas, RepositorioTransacciones repositorioTransacciones)
         {
             _repositorioDivisas = repositorioDivisas;
+            _repositorioTransacciones = repositorioTransacciones;
+
         }
 
 
@@ -21,7 +22,7 @@ namespace AgenciaDeCambioPOO.Datos
 
         public void GuardarTransaccion(Transaccion transaccion)
         {
-            _repositorioDivisas.GuardarTransaccion(transaccion);
+            _repositorioTransacciones.GuardarTransaccion(transaccion);
         }
     }
 

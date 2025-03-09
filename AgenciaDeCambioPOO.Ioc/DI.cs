@@ -11,16 +11,16 @@ namespace AgenciaDeCambioPOO.Ioc
 
             services.AddSingleton<IArchivo, ManejadorXml>();
             services.AddSingleton(provider => new RepositorioDivisas(provider.GetRequiredService<IArchivo>(), "NuevasDivisas.xml"));
-            //services.AddSingleton<IArchivoSecuencial>(provider => new ManejadorArchivoSecuencial("Transacciones.txt", provider.GetRequiredService<RepositorioDivisas>()));
-            //services.AddSingleton(provider => new RepositorioTransacciones(provider.GetRequiredService<IArchivoSecuencial>(),
-            //            provider.GetRequiredService<RepositorioDivisas>(), "Transacciones.txt"));
+            services.AddSingleton<IArchivoSecuencial>(provider => new ManejadorArchivoSecuencial("Transacciones.txt"));
+            services.AddSingleton(provider => new RepositorioTransacciones(provider.GetRequiredService<IArchivoSecuencial>(),
+                        "Transacciones.txt"));
             //services.AddSingleton(provider =>
             //        new AgenciaDeCambio(provider.GetRequiredService<RepositorioDivisas>(),
             //        provider.GetRequiredService<RepositorioTransacciones>()
             //    )
             services.AddSingleton(provider =>
-                    new AgenciaDeCambio(provider.GetRequiredService<RepositorioDivisas>()
-
+                    new AgenciaDeCambio(provider.GetRequiredService<RepositorioDivisas>(),
+                    provider.GetRequiredService<RepositorioTransacciones>()
                 ));
 
             //   );
