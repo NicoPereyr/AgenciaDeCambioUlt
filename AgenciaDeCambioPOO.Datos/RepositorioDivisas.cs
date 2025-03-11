@@ -7,19 +7,19 @@ namespace AgenciaDeCambioPOO.Datos
         private readonly IArchivo _manejadorXml;
         private readonly string _ruta;
 
-        private Dictionary<String, Divisa> divisas = new();
+        private Dictionary<string, Divisa> divisas = new();
 
-        private void CargarDivisas()
-        {
-            var lista = _manejadorXml.LeerDatos(_ruta);
-            divisas = lista.ToDictionary(d => d.Abreviatura, d=>d);
-        }
 
-        public RepositorioDivisas(IArchivo manejadorXml, string ruta)
+        public RepositorioDivisas(string ruta, IArchivo manejadorXml)
         {
             _manejadorXml = manejadorXml;
             _ruta = ruta;
             CargarDivisas();
+        }
+        private void CargarDivisas()
+        {
+            var lista = _manejadorXml.LeerDatos(_ruta);
+            divisas = lista.ToDictionary(d => d.Abreviatura, d => d);
         }
 
         public List<Divisa> ObtenerTodas()
@@ -27,5 +27,31 @@ namespace AgenciaDeCambioPOO.Datos
             return divisas.Values.ToList();
         }
 
+        public Divisa? BuscarDivisa(string abreviatura)
+        {
+            divisas.TryGetValue(abreviatura, out Divisa? buscarDivisa);
+            return buscarDivisa;
+        }
+
+        public void GuardarDivisa(Divisa divisa)
+        {
+            var divisaBuscada = BuscarDivisa(divisa.Abreviatura);
+            if (divisaBuscada == null)
+            {
+                divisas.Add(divisa.Abreviatura, divisa);
+            }
+            else
+            {
+                divisaBuscada.CotizacionCompra = divisa.CotizacionCompra;
+                divisaBuscada.CotizacionVenta = divisa.CotizacionVenta;
+                divisaBuscada.Cantidad = divisa.Cantidad;
+            }
+            GuardarDatos();
+        }
+
+        private void GuardarDatos()
+        {
+            _manejadorXml.GuardarDatos(_ruta, divisas.Values.ToList());
+        }
     }
 }

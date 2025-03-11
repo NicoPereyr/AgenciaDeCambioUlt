@@ -7,7 +7,7 @@
             ObtenerCotizacion(divisa);
         }
 
-        public string MostrarTransaccion()
+        public override string MostrarTransaccion()
         {
             return base.MostrarTransaccion()+ "\nVenta Realizada";
         }

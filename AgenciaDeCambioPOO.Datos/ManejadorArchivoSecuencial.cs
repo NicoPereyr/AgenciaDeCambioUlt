@@ -1,9 +1,4 @@
 ﻿using AgenciaDeCambioPOO.Entidades;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AgenciaDeCambioPOO.Datos
 {
@@ -23,27 +18,57 @@ namespace AgenciaDeCambioPOO.Datos
              * streamwriter agregue un registro al
              * final del archivo
              */
-            using (StreamWriter escritor=new StreamWriter(_ruta, true))
+            using (StreamWriter escritor = new StreamWriter(_ruta, true))
             {
                 var linea = ConstruirLinea(datos);
                 escritor.WriteLine(linea);
             }
         }
 
-        private object ConstruirLinea(Transaccion datos)
+        private string ConstruirLinea(Transaccion datos)
         {
-            string tipoOperacion = "Venta";
-            return $"{datos.Fecha}|" +
-                $"{datos.Abreviatura}|" +
-                $"{datos.Cantidad}|" +
-                $"{datos.Cotizacion}|" +
-                $"{tipoOperacion}|" +
-                $"{datos.Total}";
+            string tipoOperacion = datos is Venta? "Venta":"Compra";
+            return $"{datos.Fecha}|{datos.Abreviatura}|{datos.Cantidad}| {tipoOperacion}|{datos.Cotizacion}";
         }
 
         public List<Transaccion> LeerDatos(string _ruta)
         {
-            throw new NotImplementedException();
+            if (!File.Exists(_ruta)) return new List<Transaccion>();
+            List<Transaccion> lista = new List<Transaccion>();
+            using (StreamReader lector = new StreamReader(_ruta))
+            {
+                while (!lector.EndOfStream)
+                {
+                    string? lineaLeida = lector.ReadLine();
+                    Transaccion t = ConstruirTransaccion(lineaLeida);
+                    lista.Add(t);
+                }
+            }
+            return lista;
+        }
+
+        private Transaccion ConstruirTransaccion(string? lineaLeida)
+        {
+            var campos = lineaLeida!.Split('|');
+            var fecha = DateTime.Parse(campos[0]);
+            var abreviatura = campos[1];
+            var cantidad = int.Parse(campos[2]);
+            var tipoOperacion = campos[3];
+            var cotizacion = decimal.Parse(campos[4]);
+
+            return tipoOperacion == "Venta" ?
+                new Venta(new Divisa { Abreviatura = abreviatura }, cantidad)
+                {
+                    Abreviatura = abreviatura,
+                    Cotizacion = cotizacion,
+                    Fecha = fecha
+                } : new Compra(new Divisa { Abreviatura = abreviatura }, cantidad)
+                {
+                    Abreviatura = abreviatura,
+                    Cotizacion = cotizacion,
+                    Fecha = fecha
+                };
+
         }
     }
 }

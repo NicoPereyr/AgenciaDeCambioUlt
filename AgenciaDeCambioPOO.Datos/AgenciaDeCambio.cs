@@ -14,7 +14,6 @@ namespace AgenciaDeCambioPOO.Datos
 
         }
 
-
         public List<Divisa> ObtenerDivisas()
         {
             return _repositorioDivisas.ObtenerTodas();
@@ -23,6 +22,11 @@ namespace AgenciaDeCambioPOO.Datos
         public void GuardarTransaccion(Transaccion transaccion)
         {
             _repositorioTransacciones.GuardarTransaccion(transaccion);
+        }
+
+        public List<Transaccion> ObtenerTransacciones()
+        {
+            return _repositorioTransacciones.ObtenerTransacciones();
         }
     }
 

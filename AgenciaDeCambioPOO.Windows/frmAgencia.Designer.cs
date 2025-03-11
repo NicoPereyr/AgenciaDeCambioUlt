@@ -80,6 +80,7 @@
             tsbCompra.Size = new Size(54, 67);
             tsbCompra.Text = "Compra";
             tsbCompra.TextImageRelation = TextImageRelation.ImageAboveText;
+            tsbCompra.Click += tsbCompra_Click;
             // 
             // tsbVenta
             // 
@@ -106,7 +107,6 @@
             tsbNuevaDivisa.Size = new Size(79, 67);
             tsbNuevaDivisa.Text = "Nueva Divisa";
             tsbNuevaDivisa.TextImageRelation = TextImageRelation.ImageAboveText;
-            tsbNuevaDivisa.Click += tsbNuevaDivisa_Click;
             // 
             // tsbActualizar
             // 
@@ -157,7 +157,6 @@
             dgvDivisas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvDivisas.Size = new Size(390, 485);
             dgvDivisas.TabIndex = 0;
-            dgvDivisas.CellContentClick += dgvDivisas_CellContentClick;
             // 
             // colDivisa
             // 

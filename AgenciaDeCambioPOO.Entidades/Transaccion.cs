@@ -27,8 +27,6 @@ namespace AgenciaDeCambioPOO.Entidades
             sb.AppendLine($"Cotización: {Cotizacion}");
             sb.AppendLine($"Cantidad: {Cantidad}");
             sb.AppendLine($"Total: {Total}");
-
-
             return sb.ToString();
         }
 
